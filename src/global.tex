@@ -1,0 +1,61 @@
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
+
+\definecolor{filebg}{RGB}{200,100,100}
+\definecolor{fileborder}{RGB}{100,50,50}
+
+\def\Size{4pt}
+\tikzset{
+  folder/.pic={
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+    \filldraw[draw=folderborder,top color=folderbg!50,bottom color=folderbg]
+      (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+  },
+  file/.pic={
+    \filldraw[draw=fileborder,top color=filebg!50,bottom color=filebg]
+      (-\Size,-\Size) -| (\Size,.8*\Size) -- (0.4*\Size,1.4*\Size) -- (-\Size,1.4*\Size) -- cycle;
+    \draw[fileborder]
+      (\Size,.8*\Size) -| (0.4*\Size,1.4*\Size);
+  },
+}
+
+\forestset{
+    default preamble={
+        for tree={
+            font=\ttfamily,
+            grow'=0,
+            child anchor=west,
+            parent anchor=south,
+            anchor=west,
+            calign=first,
+            inner xsep=7pt,
+            folder edges/.style={
+                edge path={
+                    \noexpand\path [draw, \forestoption{edge}]
+                    (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+                }
+            },
+            file edges/.style={
+                edge path={
+                    \noexpand\path [draw, \forestoption{edge}]
+                    (!u.south west) +(7.5pt,0) |- (.child anchor) pic {file} \forestoption{edge label};
+                }
+            },
+            root file edges/.style={
+                edge path={
+                    \noexpand\path [draw, \forestoption{edge}] pic {folder}
+                    (!u.south west) +(7.5pt,0) |- (.child anchor) pic {folder} \forestoption{edge label};
+                }
+            },
+            folder edges,
+            before typesetting nodes={
+                if n=1 {
+                    insert before={[,phantom]}
+                }{}
+            },
+            fit=band,
+            before computing xy={l=15pt},
+        }  
+    }
+}

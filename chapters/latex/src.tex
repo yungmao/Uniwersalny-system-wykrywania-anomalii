@@ -1,0 +1,40 @@
+\chapter{Praca z \LaTeX{}-em}
+\label{chap:latex}
+
+Podstawowe informacje dotyczące pracy z systemem \LaTeX{} można znaleźć na stronie Overleaf~\cite{Overleaf}. Z kolei szczegółową specyfikację dotyczącą konkretnych paczek zawarto na repozytorium~\cite{WinNT}.
+
+\section{Przykładowa struktura projektu}
+
+W niniejszym dokumencie zaproponowano szablon projektu pokazany na rysunku~\ref{fig:projectSchema}. Większość elementów ma oczywiste znaczenie, poniżej objaśniono wybrane:
+\begin{itemize}
+    \item alg --- folder z kodem dla pseudokodów;
+    \item cmd --- folder z makrami wykorzystywanymi w rozdziale;
+    \item data --- folder z danymi wykorzystywanymi do generowania wykresów lub tabel;
+    \item fig --- folder z obrazami;
+    \item tab --- folder z kodem generującym tabele;
+    \item tikz --- folder z kodem tikz, służącym na przykład do generowania schematów lub wykresów;
+    \item global.tex --- plik z makrami używanymi w całym projekcie.
+\end{itemize}
+
+\begin{figure}[t]
+    \centering
+    \begin{minipage}{0.45\textwidth}
+        \subimport{tikz/}{filetree.tex}
+    \end{minipage}
+    \begin{minipage}{0.45\textwidth}
+        \subimport{tikz/}{chaptertree.tex}
+    \end{minipage}
+    \caption{Przykładowa struktura projektu: ogólna (po lewo) oraz struktura folderów \textit{appendices} i \textit{chapters} (po prawo)}
+    \label{fig:projectSchema}
+\end{figure}
+
+\section{Przydatne funkcje edytora Overleaf}
+
+Oto wybrane przydatne funkcje edytora Overleaf, z którymi warto się moim zdaniem zapoznać:
+\begin{itemize}
+    \item dedykowane skróty klawiszowe;
+    \item możliwość dodawania komentarzy w trybie ,,Review'' --- w ten sposób możemy wymieniać uwagi dotyczące tekstu;
+    \item chat --- do szybkiej wymiany uwag;
+    \item historia --- w szczególności istotne jest dodawanie nazwanych wersji, pozwalają one na przywrócenie w razie potrzeby dokumentu do używalności;
+    \item synchronizacja dokumentu z kontem Dropbox oraz udostępnienie go jako repozytorium Git --- opcja przydatna w razie chęci pracy offline.
+\end{itemize}
