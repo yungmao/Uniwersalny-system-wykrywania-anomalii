@@ -5,19 +5,22 @@
     \bibliographystyle{siam}
     
     \maketitle
-    \import{src/}{dedication.tex}
+    % \import{src/}{dedication.tex}
     \tableofcontents 
     
-    \import{chapters/latex/}{src.tex}
-    \import{chapters/structure/}{src.tex}
-    \import{chapters/printing/}{src.tex}
-    \import{chapters/review/}{src.tex}
-    \import{chapters/mistakes/}{src.tex}
+    \import{chapters/wstep/}{src.tex}
+    \import{chapters/cel_zakres/}{src.tex}
+    \import{chapters/przeglad/}{src.tex}
+    \import{chapters/metodyka/}{src.tex}
+    \import{chapters/docs/}{src.tex}
+    \import{chapters/program/}{src.tex}
+    \import{chapters/analiza/}{src.tex}
+    \import{chapters/ending/}{src.tex}
     
-    \appendixpage % Użyć tylko jeśli występuje więcej niż jeden dodatek!
-    \begin{appendix}
-        \import{appendices/appendix1/}{src.tex}
-    \end{appendix}
+    % \appendixpage % Użyć tylko jeśli występuje więcej niż jeden dodatek!
+    % \begin{appendix}
+    %     \import{appendices/appendix1/}{src.tex}
+    % \end{appendix}
     
     \addcontentsline{toc}{chapter}{\bibname}
     \bibliography{src/bibliography}
