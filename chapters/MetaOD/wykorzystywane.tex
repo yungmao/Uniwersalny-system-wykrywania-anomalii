@@ -1,1 +1,9 @@
+\section{Rozpatrywane podejścia}
+Mając na uwadze problematykę detekcji anomalii poruszoną w rozdziale \ref{chap:OD} na fazie projekcyjnej rozpatrywano początkowo wybór jednego algorytmu o jak najlepszej skuteczności detekcji dla jak największej ilości zbiorów danych. 
+
+Początkowy wyborem był algorytm \textit{Isolation Forest}\cite{iforest}. Algorytm pozytywnie oceniany był w badaniach porównawczych \cite{emmott2015meta,aggarwal2017ens}. Jednakże żaden algorytm konsekwentnie przewyższa -- precyzją detekcji anomalii -- inne porównywane algorytmy \cite{aggarwal2017ens}. Dla przykładu w bardzo skupionych anomaliach algorytm \textit{ABOD} \cite{abod} oraz \textit{LOF} \cite{lof} sprawowały się lepiej \cite{emmott2015meta}. 
+
+Następnie zamiast wyboru jednego algorytmu, rozpatrywano podejście zakładające wybór jak najlepszego algorytmu z listy algorytmów oraz dobór jego parametrów w celu usprawnienia detekcji anomalii dla zróżnicowanych właściwości zbiorów danych. 
+W celu automatyzacji doboru optymalnego algorytmu oraz jego parametrów zdecydowano na wykorzystanie biblioteki "Automating Outlier Detection via Meta-Learning" (MetaOD) \cite{zhao2020metaod}. 
+
 \section{Proponowane rozwiązanie: MetaOD}
