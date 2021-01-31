@@ -1,7 +1,9 @@
-\begin{sidewaystable}
+% \begin{sidewaystable}
+%     \centering
+\begin{table}[]
     \centering
-\begin{tabular}{lrrrrr}
-      Zbiór & Dane oryginalne & RobustScaler & StandardScaler & MinMaxScaler & PowerTransformer \\ \hline
+\begin{tabularx}{\textwidth}{lXXXXX}
+      Zbiór & Dane oryginalne & Robust Scaler & Standard Scaler & MinMax Scaler & Power Transformer \\ \hline
 arrhythmia &               0.7480 &                  0.7527 &            0.7685 &      0.8093 &      0.7619 \\
     cardio &               0.5474 &                  0.6150 &            0.8604 &      0.9109 &      0.3830 \\
      glass &               0.6249 &                  0.4016 &            0.7122 &      0.7518 &      0.6076 \\
@@ -25,12 +27,12 @@ satimage-2 &               0.9795 &                  0.9715 &            0.9688 
 0.7442&
 0.7959&
 0.6234
-\end{tabular}
-    \caption{Porównanie skuteczności modelu wybranego przez MetaOD w zależności od metody standaryzacji danych -- pole pod krzywą ROC}
-    \footnotesize{źródło: Opracowanie własne}
-    \label{tab:roc_sc}
-
-\end{sidewaystable}
+\end{tabularx}
+\caption{Porównanie skuteczności modelu wybranego przez MetaOD w zależności od metody standaryzacji danych -- pole pod krzywą ROC}
+\footnotesize{źródło: Opracowanie własne}
+\label{tab:roc_sc}
+\end{table}
+% \end{sidewaystable}
 \begin{sidewaystable}
     \centering
 \begin{tabular}{lrrrrr}

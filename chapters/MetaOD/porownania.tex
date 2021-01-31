@@ -22,7 +22,7 @@ Funkcje jądrowe:
     Liniowa: x^Tx_i \\
     Wielomianowa: (\gamma x^Tx_i+c)^n \\
     RBF: exp(-\gamma ||x-x_i||^2) \\
-    Sigmoidalna: tgh(\gammax^Tx_i+c)
+    Sigmoidalna: tgh(\gamma x^Tx_i+c)
 \end{align*}
 Parametr "nu" jest górną granicą akceptowalnego błędu klasyfikacji oraz dolną granicą liczby wektorów nośnych do liczby analizowanych obserwacji. Wykorzystany w celu uniknięcia przeuczenia klasyfikatora. 
 \label{eq:funjadro}
@@ -84,7 +84,7 @@ gdzie $ac_{dist}(x)$ oznacza średnią długość krawędzi w minimalnym drzewie
 
 \subsection{ABOD}
 \label{abod}
-\textit{Angel-based Outlier Detection}(ABOD) \cite{abod} zamiast metryki między punktami w sąsiedztwie obserwacji, porównuje kierunek wektorów skierowanych wychodzących z rozpatrywanego punktu $x$.  W wielowymiarowych przestrzeniach kąty są stabilniejsze niż metryka, spowodowane jest to ,,przekleństwem wymiarowości''. Rezultatem badań na temat zagadnienia ,,przekleństwa wymiarowości"\cite{curse} jest wniosek, że najdalszy i najbliższy punkt wraz ze wzrostem wymiarów, zbiegają do 0 :
+\textit{Angel-based Outlier Detection}(ABOD) \cite{abod} zamiast metryki między punktami w sąsiedztwie obserwacji, porównuje kierunek wektorów skierowanych wychodzących z rozpatrywanego punktu $x$.  W wielowymiarowych przestrzeniach kąty są stabilniejsze niż metryka, spowodowane jest to ,,przekleństwem wymiarowości''. Rezultatem badań na temat zagadnienia ,,przekleństwa wymiarowości"\cite{curse} jest wniosek, że wraz ze wzrostem wymiarów, różnica największej odległości między punktami a najmniejszej dla dowolnego punktu, zbiega do 0 :
 \begin{equation}
 \lim_{d\to\infty} \frac{dist_{max} - dist_{min}}{dist_{min}} \longrightarrow 0
 \end{equation}
@@ -132,7 +132,7 @@ gdzie $\hat{p}$ oznacza gęstość zmiennej losowej przybliżonej przez i-ty his
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=.8\textwidth]{chapters/MetaOD/images/iforest.jpg}
+    \includegraphics[width=\textwidth]{chapters/MetaOD/images/iforest.jpg}
     \caption{Drzewo decyzyjne w \textit{Isolation Forest}.}
     \footnotesize{źródło: \cite{if-image}}
     \label{fig:iforest}

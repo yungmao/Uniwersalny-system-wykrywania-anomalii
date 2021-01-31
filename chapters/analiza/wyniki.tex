@@ -4,19 +4,19 @@
 Rozpatrzono skuteczność modelu wybranego przez MetaOD dla czterech metody standaryzacji danych oraz danych nieprzekształconych.
 Rozpatrywane metody skalowania:
 \begin{itemize}
-    \item StandardScaler: standaryzacja Z wykorzystująca średnią oraz odchylenie standardowe cechy:\begin{equation}
+    \item Standard Scaler: standaryzacja Z wykorzystująca średnią oraz odchylenie standardowe cechy:\begin{equation}
         z=\frac{x-\mu}{\sigma}. 
     \end{equation}
-    \item RobustScaler: standaryzacja odporna na obserwacje odstające, wykorzystuje medianę oraz rozstęp ćwiartkowy cechy:
+    \item Robust Scaler: standaryzacja odporna na obserwacje odstające, wykorzystuje medianę oraz rozstęp ćwiartkowy cechy:
     \begin{equation}
             X_{std}=\frac{X-mediana(X)}{IQR}
     \end{equation}
     
-    \item MinMaxScaler: standaryzacja danych do przedziału [0,1], gdzie minimalna i maksymalna wartość cechy wyznaczają granice przedziału  \begin{equation}
+    \item MinMax Scaler: standaryzacja danych do przedziału [0,1], gdzie minimalna i maksymalna wartość cechy wyznaczają granice przedziału  \begin{equation}
     \label{mms}
         X_{std} = \frac{X - X_{min}}{X_{max} - X_{min}}
     \end{equation}    
-    \item PowerTransformer (transformacja Yeo–Johnson \cite{yeo2000new}): transformacja symetryzująca rozkład zmiennej losowej. Dzięki czemu rozkład zmiennej losowej (cecha zbioru danych) przypomina rozkład normalny.
+    \item Power Transformer (transformacja Yeo–Johnson \cite{yeo2000new}): transformacja symetryzująca rozkład zmiennej losowej. Dzięki czemu rozkład zmiennej losowej (cecha zbioru danych) przypomina rozkład normalny.
     \begin{equation}
     y_i^{(\lambda)} = \begin{cases} ((y_i+1)^\lambda-1)/\lambda                      &  \text{jeśli }\lambda \neq 0, y \geq 0 \\ 
                                 \log(y_i + 1)                                    &  \text{jeśli }\lambda =    0, y \geq 0 \\ 

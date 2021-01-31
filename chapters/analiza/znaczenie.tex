@@ -1,0 +1,32 @@
+% \begin{sidewaystable}
+%     \centering
+\begin{table}[h]
+    \centering
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+      Zbiór & Charakter zbioru danych  &  Znaczenie anomalii  \\ \hline
+\midrule
+arrhythmia &     Dane pacjenta wraz z informacjami badania EKG & Wykrycie arytmi serca \\
+    cardio &    Wyniki badania Kardiotokografii   &  Wykrycie patologii pracy serca płodu      \\
+     glass &       Skład chemiczny różnych rodzai szkła  & Wykrycie próbek szkła, należących do klasy zdecydowanie mniejszościowej  \\
+ionosphere & Sygnały odbite radaru (jonosondy)  &  Sygnał jonosondy przechodzi przez jonosferę -- brak wykrycia struktury w jonosferze    \\   
+    letter & Wybrane 3 litery tworzą klasę normalnych obserwacji &  Litery spoza normalnej klasy  \\    
+    lympho &  Wyniki badania limfografii  &  Wykrycie metastazy lub zwłóknienia   \\
+     mnist &  Obserwacje cyfry 0 uznane za normalne obserwacje  & 700 zdjęć cyfry 6 uznane za anomalie  \\
+      musk & Zbiór opisuje budowę oraz strukturę różnych związków chemicznych & Wykrycie związku uznanego za piżmo \\
+ optdigits &  Zbiór składa się z cyfr. Zbiór zawiera ponad 97\% obserwacji cyfr od 1 do 9 &            Wykrycie cyfry 0 (2.86\%) -- anomalia \\
+ pendigits & Zbiór zbliżony charakterem do ,,optdigits'' &  Wykrycie cyfry 0 -- anomalia     \\
+      pima & Zbiór danych o kobietach z plemienia Pima takich jak poziom glukozy, BMI, ciśnienie tętnicze &      Wykrycie cukrzycy        \\
+ satellite & Zdjęcia satelitarne programu Landsat. Zbiór danych oryginalnie służył do klasyfikacji gleby (7 klas)   &   Najmniej liczne klasy (2,4,5) -- anomalie      \\
+satimage-2 &  Zbiór danych ,,satellite'' dla którego ilość obserwacji klasy 2 została zmniejszona do 71 &   Wykrycie gleby należącej do klasy 2 (pole bawełny)       \\
+   shuttle & Informacje pokładowe wahadłowca kosmicznego. Ponad 92\% obserwacji należy do klasy 1 &    Obserwacje nie należące do klasy 1 -- anomalie        \\
+ vertebral &  Cechy biometryczne opisujące miednicę oraz odcinek lędzwiowy kręgosłupa   &            Obserwacje normalnej biomechaniki zmniejszono do 30 obserwacji -- anomalie  \\
+    vowels & Dane zawierają zakodowane wypowiedzenia samogłoski {/ae/}, przez 4 mężczyzn. Wypowiedzenia samogłoski przez pierwszego mężczyzny zmniejszono do 50 & Wykrycie wypowiedzenia samogłoski /ae/ przez 1 mężczyznę  -- anomalia         \\
+       wbc &   Wyniki biopsji aspiracyjnej cienko-igłowej guzów piersi & Żłośliwy rak piersi -- anomalia.
+\bottomrule
+\end{tabularx}
+    \caption{Informacje o charakterze zbioru danych i obecnych w zbiorze anomalii}
+    \footnotesize{źródło: Opracowanie własne na podstawie \cite{ODDS}}
+    \label{tab:my_label}
+\end{table}
+% \end{sidewaystable}
