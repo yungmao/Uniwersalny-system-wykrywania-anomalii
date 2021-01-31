@@ -1,16 +1,28 @@
 \section{Analiza technologiczna}
-W sekcji przedstawiono wykorzystane technologie oraz narzędzia programistyczne 
 \subsection{Wykorzystane technologie oraz biblioteki}
-\begin{itemize}
-    \item Python
-    \item HTML
-    \item Flask
-    \item Bootstrap - bibloteka CSS, służąca do tworzenia interfejsu graficznego strony internetowej. 
-    % \item Jinja2 
-    \item PyOD
-    \item MetaOD
-    \item Sklearn
-    \item FPDF
-\end{itemize}
+System powstał z wykorzystaniem języka programistycznego Python 3.7. Jest to prosty do nauczenia, przejrzysty, a zarazem wszechstronny język programistyczny o rosnącej popularności zwłaszcza w środowisku uczenia maszynowego. Do stworzenia aplikacji webowej wykorzystano mikro-framework Flask 1.1.2. Do projektowania struktury i interfejsu graficznego strony internetowej wykorzystano: HTML, JavaScript oraz biblioteki CSS -- Bootstrap.
+Do wyboru optymalnego modelu detekcji anomalii wykorzystano bibliotekę MetaOD, którą opisano w sekcji \ref{sec:MetaOD}. Do detekcji anomalii w zbiorze danych, wykorzystując algorytmy z przestrzeni bazowej modeli, skorzystano z gotowych implementacji algorytmów zawartych w bibliotece PyOD. 
+Do analizy oraz przechowywania danych w strukturach danych użyto pakietu Pandas (tabela danych) oraz Numpy(tablice). Do skalowania zbioru danych wykorzystano bibliotekę Scikit-learn. Matplotlib został wykorzystany jako kreator wykresów pudełkowych oraz histogramów.
+
+% Funkcjonalność aplikacji webowej została napisana w języku Python 3.7 z wykorzystaniem frameworku Flask 1.1.2.
+% Interfejs graficzny powstała z użyciem języków HTML oraz JavaScript.
+% Interfejs graficzny wykorzystuje bibliotekę CSS -- Bootstrap. 
+% Do przechowywania danych w strukturach danych wykorzystano biblioteki: NumPy(tablice) oraz Pandas(tabela danych). 
+% Detekcje anomalii przeprowadzona została z wykorzystaniem MetaOD i PyOD. 
+% Do tworzenia wykresów wykorzystano bibloteki Matplotlib
+% % \begin{itemize}
+% %     \item Python 3.7 - 
+% %     \item HTML
+% %     \item Flask
+% %     \item Bootstrap - bibloteka CSS, służąca do tworzenia interfejsu graficznego strony internetowej. 
+% %     % \item Jinja2 
+% %     \item PyOD
+% %     \item MetaOD
+% %     \item Sklearn
+% %     \item FPDF
+% %     \item Matplotlib
+% %     \item Pandas
+% %     \item Numpy
+% % \end{itemize}
 \subsection{Wykorzystane narzędzia programistyczne}
-Zintegrowanym środowiskiem programistycznym wykorzystanym do tworzenia aplikacji był PyCharm Professional, czeskiej firmy JetBrains. 
+Zintegrowanym środowiskiem programistycznym wykorzystanym przy tworzeniu aplikacji był PyCharm Professional, czeskiej firmy JetBrains. To zaawansowane i wszechstronne środowisko ułatwia proces pisania kodu źródłowego, testowania oraz rozwijania oprogramowania. Posiada graficzny debugger ułatwiający identyfikację błędów. Wspiera pisanie aplikacji webowych. Posiada integrację z systemem kontroli wersji Git, wykorzystanego przy produkcji systemu do tworzenia kolejnych wersji rozwijanego projektu. Dzięki czemu implementacja nowych funkcjonalności odbywa się bez obawy utraty działającej wersji systemu.

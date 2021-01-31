@@ -1,13 +1,176 @@
 \section{Implementacja funkcjonalności}
 
 \subsection{Uzyskanie danych}
+System rozpoczyna działanie od strony startowej, na której klient może wybrać plik z danymi, które chce poddać zadaniu detekcji anomalii. Plik musi mieć rozszerzenie CSV lub JSON. Po naciśnięciu przycisku ,,Analizuj'' następuje przesłanie pliku do systemu. System sprawdza zgodność rozszerzenia pliku, jeżeli rozszerzenie jest obsługiwane, następuje zapisanie pliku na serwerze.
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{chapters/projekt/images/index.png}
+    \caption{Strona startowa systemu wykrywania anomalii}
+    \footnotesize{źródło: Opracowanie własne}
+    \label{fig:my_label}
+\end{figure}
+\subsection{Przygotowanie danych}
+Po zapisaniu pliku na serwerze następuje wczytanie danych z wykorzystaniem biblioteki Pandas. Wczytane dane są weryfikowane pod kątem brakujących wartości, jeśli zbiór danych zawiera brakujące wartość, system w miejsce brakującej wartości wstawia średnia z cechy (kolumny). System również dokonuje standaryzacji zbioru danych, wykorzystując funkcje biblioteki Scikit-learn -- \textit{MinMaxScaler}, która skaluje obserwację według wzoru:
+\begin{equation}
+       X_{std} = \frac{X - X_{min}}{X_{max} - X_{min}} 
+\end{equation}
+%     % X_{scaled} = X_{std} \cdot (max - min) + min
+%  \end{gather}
+ gdzie min, max są to minimalne i maksymalne wartości obserwacji. \textit{MinMaxScaler} został wybrany ze względu na największą skuteczność dla zestawu testowych zbiorów danych (podsekcja \ref{minimen}).
+%  \input{chapters/projekt/scaler}
+ 
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Funkcja wczytująca dane z formatu JSON oraz sprawdzająca brakujące wartości}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+def access_data_json(filename):
+    data = pd.read_json(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    check_NAN = data.isnull().values.any()
+    if check_NAN == True:
+        imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
+        imputer = imputer.fit(data)
+        data = imputer.transform(data)
+    data = data.to_numpy()
+    return data
+\end{lstlisting}
+\subsection{Wybór modelu}
+Wybór modelu dokonywany jest z wykorzystaniem MetaOD (opisanej w Sekcji \ref{sec:MetaOD}). 
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Funkcja skalująca zbiór danych oraz dokonująca wyboru modelu z przestrzeni bazowej modeli}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\label{cont}
+\begin{lstlisting}
+def choose_Model(data):
+    scaler = MinMaxScaler().fit(data)
+    Data_RobustScaled = scaler.transform(data)
+    prepare_trained_model()
+    selected_models = select_model(Data_RobustScaled, n_selection=1)
+    for foo, model in enumerate(selected_models):
+        model = model.item(0)
+        best_clf = name.split(" ")
+        clf = best_clf[0]
+        param = best_clf[1:]
+        parameters = {0:0}
+        if clf == "ABOD":
+            n_neighbour = param[0]
+            n_neighbour = int(n_neighbour)
+            model = ABOD(contamination=0.01,
+                        n_neighbors=n_neighbour, 
+                        method='fast')
+            parameters = {'Liczba sasiadow': n_neighbour}
+        if clf == "COF":
+            n_neighbours = param[0]
+            model = COF(contamination=0.01,
+                        n_neighbours=int(n_neighbours))
+            parameters = {'Liczba sasiado': n_neighbours}
+        if clf == "HBOS":
+            n_histograms, tolerance = get_param(param)
+            model = HBOS(contamination=0.01,
+                        n_bins=int(n_histograms),
+                        tol=float(tolerance))
+            parameters = {'Liczba prostokatow histogramu': n_histograms,
+                          'Tolerancja': tolerance}
+        if clf == "Iforest":
+            n_estimators, max_features = get_param(param)
+            model = IForest(contamination=0.01,
+                            n_estimators=int(n_estimators),
+                            max_features=float(max_features))
+            parameters = {'Liczba estymatorow': n_estimators,
+                          'Procent rozpatrywanych cech': max_features}
+        if clf == "kNN":
+            n_neighbours, method = get_param(param)
+            method = method[1:-1]
+            model = KNN(contamination=0.01,
+                        n_neighbors=int(n_neighbours),
+                        method=method)
+            parameters = {'Liczba sasiadow': n_neighbours,
+                          'Metoda': method}
+        if clf == "LODA":
+            n_bins, n_random_cuts = get_param(param)
+            model = LODA(contamination=0.01,
+                        n_bins=int(n_bins),
+                        n_random_cuts=int(n_random_cuts))
+            parameters = {'Liczba slupkow histogramu': n_bins,
+                          'Liczba losowych ciec': n_random_cuts}
+        if clf == "LOF":
+            n_neighbours, method = get_param(param)
+            method = method[1:-1]
+            model = LOF(contamination=0.01,
+                        n_neighbors=int(n_neighbours),
+                        metric=method)
+            parameters = {'Liczba sasiadow': n_neighbours,
+                          'Metryka': method}
+        if clf == "OCSVM":
+            nu, kernel = get_param(param)
+            kernel = kernel[1:-1]
+            model = OCSVM(contamination=0.01,kernel=str(kernel), nu=float(nu))
+            parameters = {'nu': nu,
+                          'Funkcja jadra': kernel}
+        dump(model, "static/model/clf.joblib")
+        return clf, parameters
 
-\subsection{Przetwarzanie danych}
-
-\subsection{Wybór algorytmu}
+\end{lstlisting}
 
 \subsection{Wykrywanie anomalii}
+Po uzyskaniu optymalnego modelu, wykorzystując bibliotekę PyOD, dokonujemy zadania detekcji anomalii. Wykorzystując W tym celu w jeden z algorytmów opisanych w sekcji \ref{ref:Algorytmy}. Uzyskane wartości anomalności są skalowane do przedziału [0,1] za pomocą funkcji MinMaxScaler
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={Funkcja dokonująca detekcji anomalii oraz przypisująca wartość anomalności dla każdej obserwacji}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+def output_MetaOD(data):
+    clf = load('static/model/clf.joblib')
+    clf_name = str(clf).split("(")[0]
+    transformer = MinMaxScaler().fit(data)
+    data_standarize = transformer.transform(data)
+    clf.fit(data_standarize)
+    labels, decision_score = clf.labels_, clf.decision_scores_
+    labels_T = labels.reshape((-1, 1))
+    decision_score_T = decision_score.reshape(-1, 1)
+    scaler = MinMaxScaler().fit(decision_score_T)
+    decision_score_T  = scaler.transform(decision_score_T)
+    labels_T = np.where(labels_T == 1, "Anomalia", "Prawidłowość")
+    output = np.append(labels_T,decision_score_T,axis=1)
+    data_with_labels = np.append(output,data, axis=1)
+    dataframe = pd.DataFrame(data_with_labels)
+    return dataframe
+    \end{lstlisting}
+
+% \begin{equation}
+%     x_{wyskalowany} = \frac{x - x_{min}}{x_{max} - x_{min}}
+% \end{equation}
+% gdzie x -- wartość anomalności obserwacji. Dzięki temu interpretacja wyniku anomalności dla dowolnej metody jest identyczna. Wyższa wartość oznacza wyższą anomalność obserwacji. 
 
 \subsection{Oczyszczanie danych z anomalii}
+Ze zbioru danych w celu oczyszczenia usuwamy obserwacje, których wartość anomalności mieści się w 99. per centylu (zaklasyfikowane jako anomalia). Dokonano tego, ustawiają próg zanieczyszczenia danych podczas tworzenia modelu (contamination = 0.01).
+% \lstset{language=Python}
+% \lstset{frame=lines}
+% \lstset{caption={Funkcja skalująca zbiór danych oraz dokonująca wyboru modelu z przestrzeni bazowej modeli}}
+% \lstset{label={lst:code_direct}}
+% \lstset{basicstyle=\footnotesize}
+% \begin{lstlisting}
+% def clean_data(dataframe, filename, extension):
+%     df = dataframe.copy()
+%     indexNames = dataframe[dataframe["Klasyfikacja"] == "Anomalia"].index
+%     df.drop(indexNames, inplace=True)
+%     df.drop(df.columns[0], inplace=True, axis=1)
+%     if extension == "json":
+%         df.to_json('static/clean_data/clean_'+str(filename))
+%     elif extension == "csv":
+%         df.to_csv('static/clean_data/clean_'+str(filename))
+%     \end{lstlisting}
 
-\subsection{Tworzenie raportu}
+\subsection{Raport działania systemu }
+System po przeprowadzeniu analizy zbioru danych wyświetla użytkownikowi stronę zawierającą wykres pudełkowy oraz histogram wartości anomalności obserwacji. Jak również zbiór danych posegregowanych według wartości anomalności.
+\begin{sidewaysfigure}
+  \centering
+  \includegraphics[width = \textwidth]{chapters/projekt/images/Screenshot_2021-01-29 Raport(3).png}
+  \caption{Strona systemu po skończeniu zadania detekcji anomalii}
+  \footnotesize{źródło: Opracowanie własne}
+  \label{fig:label}
+ \end{sidewaysfigure}

@@ -1,6 +1,19 @@
 \section{Wytyczne projektowe}
-
+ Uniwersalny system wykrywania anomalii ma za zadanie ułatwić korzystającemu detekcję anomalii dla dowolnego zbioru danych statystycznych. W tym celu najważniejszą funkcją systemu jest automatyzacja wyboru optymalnego modelu detekcji anomalii. System po procesie analizy danych ma wizualizować wynik detekcji w sposób przejrzysty i zrozumiały dla korzystającego.    
 \subsection{Wymagania funkcjonalne}
-
+\begin{itemize}
+    \item Przesłanie pliku zawierającego zbiór danych w formatach: JSON, CSV
+    \item Oczyszczenie danych z brakujących wartości oraz wyskalowanie 
+    \item Wybór optymalnego modelu (algorytm i parametry) 
+    \item Detekcja anomalii w zbiorze danych z wykorzystaniem wybranego przez system modelu
+    \item Utworzenie oczyszczonego zbioru danych z anomalii (wartość anomalności w 99. per centylu)
+    \item Utworzenie zbioru danych z wartością anomalności dla każdej obserwacji
+    \item Stworzenie raportu z przebiegu i wyniku detekcji anomalii
+\end{itemize}
 \subsection{Wymagania niefunkcjonalne}
-
+\begin{itemize}
+    \item Zbiory danych do pobrania (oczyszczone i zawierające wartość anomalności) powinny być w formacie przesłanych danych
+    \item System powinien być jak najbardziej intuicyjny i prosty w obsłudze
+    \item Raport powinien zawierać niezbędne informacje potrzebne do dalszej analizy przez użytkownika
+    \item System oraz raport powinny być przystępne dla użytkownika bez wiedzy na temat detekcji anomalii
+\end{itemize}
